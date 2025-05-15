@@ -26,11 +26,12 @@ public record UserDTOWithExtraData(string Name, AddressDTO HomeAddress, string E
 
 // Basic mapper, built as extension methods
 // Default strategy for required mappings is 'Both'
+// Can create as few or as many Mapper classes as one sees fit
 [Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target)]
 public static partial class BasicMapper
 {
-  public static partial UserDTO ToDTO(this User user);
-  public static partial AddressDTO MakeAnAddressDTO(this Address address);
+  public static partial UserDTO ToDTOBasic(this User user);
+  public static partial AddressDTO MakeAnAddressDTOBasic(this Address address);
 }
 
 // Compile-time safety!
@@ -49,7 +50,7 @@ public static partial class MapperWithError
 [Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target)]
 public static partial class MappingChildrenObjectsImplicitly
 {
-  public static partial UserDTO ToDTO(this User user);
+  public static partial UserDTO ToDTOImplicitChildren(this User user);
   // Don't have to specify child object mappings
 }
 
