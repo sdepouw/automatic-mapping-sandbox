@@ -1,25 +1,6 @@
 ﻿using Riok.Mapperly.Abstractions;
-using Shouldly;
 
-namespace demo;
-
-public class User
-{
-  public int Id { get; set; }
-  public string Name { get; set; } = "";
-  public Address HomeAddress { get; set; } = Address.Empty;
-}
-
-public record Address(int Id, string Street, string City, string State, string Zip)
-{
-  public static readonly Address Empty = new(0, "", "", "", "");
-};
-
-public record UserDTO(string Name, AddressDTO HomeAddress);
-
-public record AddressDTO(string Street, string City, string State, string Zip);
-
-public record UserDTOWithExtraData(string Name, AddressDTO HomeAddress, string ExtraData);
+namespace demo.Mapperly;
 
 // Riok.Mapperly NuGet package
 // "Warnings as Errors" gives the best, safest experience!
@@ -78,17 +59,4 @@ public interface ICustomMapper
   public UserDTO ToDTO(User user);
 }
 
-public class TestingMappers
-{
-  [Fact]
-  public void ToDTOWithExtraData_MapsExtraData()
-  {
-    const string expectedExtraData = "some data";
-    User user = new();
-
-    UserDTOWithExtraData dtoWithExtraData = user.ToDTOWithExtraData(expectedExtraData);
-
-    // Using "Shouldly". Between this and "Mapperly", I'm using all the -ly NuGets
-    dtoWithExtraData.ExtraData.ShouldBe(expectedExtraData);
-  }
-}
+// goto Tests.cs
