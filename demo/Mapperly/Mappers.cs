@@ -28,6 +28,14 @@ public static partial class MapperWithError
   //public static partial UserDTOWithExtraData ToDTO(this User user);
 }
 
+// Manually map members
+[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target)]
+public static partial class MapperWithManualMapping
+{
+  [MapProperty(nameof(User.Name), nameof(UserDTOWithExtraData.ExtraData))]
+  public static partial UserDTOWithExtraData ToUserDTOWithExtraData(this User user);
+}
+
 [Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target)]
 public static partial class MappingChildrenObjectsImplicitly
 {
