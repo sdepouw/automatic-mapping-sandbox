@@ -15,6 +15,13 @@ public static partial class BasicMapper
   public static partial AddressDTO MakeAnAddressDTOBasic(this Address address);
 }
 
+[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target)]
+public static partial class MappingChildrenObjectsImplicitly
+{
+  public static partial UserDTO ToDTOImplicitChildren(this User user);
+  // Don't have to specify child object mappings
+}
+
 // Compile-time safety!
 [Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target)]
 public static partial class MapperWithError
@@ -37,13 +44,6 @@ public static partial class MapperWithManualMapping
 }
 
 [Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target)]
-public static partial class MappingChildrenObjectsImplicitly
-{
-  public static partial UserDTO ToDTOImplicitChildren(this User user);
-  // Don't have to specify child object mappings
-}
-
-[Mapper(RequiredMappingStrategy = RequiredMappingStrategy.Target)]
 public static partial class MappingExtraData
 {
   // "string ExtraData" needs a value! We'll get a warning if we don't provide it.
@@ -51,7 +51,6 @@ public static partial class MappingExtraData
 
   // One can simply pass the missing properties as extra params and Mapperly figures it out!
   public static partial UserDTOWithExtraData ToDTOWithExtraData(this User user, string extraData);
-
 }
 
 // Can use as a dependency, injecting ICustomMapper, instead of extension methods
